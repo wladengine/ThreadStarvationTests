@@ -1,0 +1,9 @@
+@ThreadStarvationDemo.SyncWebAPI_HostAddress = http://localhost:5062
+
+GET {{ThreadStarvationDemo.SyncWebAPI_HostAddress}}/products/
+Accept: application/json
+
+GET {{ThreadStarvationDemo.SyncWebAPI_HostAddress}}/products/async
+Accept: application/json
+
+###

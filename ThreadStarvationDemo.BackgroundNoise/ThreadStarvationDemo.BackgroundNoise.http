@@ -1,0 +1,6 @@
+@ThreadStarvationDemo.BackgroundNoise_HostAddress = http://localhost:5121
+
+GET {{ThreadStarvationDemo.BackgroundNoise_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
