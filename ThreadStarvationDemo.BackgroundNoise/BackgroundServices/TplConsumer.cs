@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 
 namespace ThreadStarvationDemo.BackgroundNoise.BackgroundServices;
 
-public class CpuBoundedConsumer : BackgroundService
+public class TplConsumer : BackgroundService
 {
     private static int counter = 0;
     static readonly Stopwatch stopwatch = new();
@@ -14,8 +14,26 @@ public class CpuBoundedConsumer : BackgroundService
         {
             LogProgress(Interlocked.Increment(ref counter));
 
-            // fire and forget
-            Task.Factory.StartNew((i) => HandleAndSaveResults((int)i), item, TaskCreationOptions.LongRunning);
+            // Simulate parallel CPU-bounded work
+            Parallel.For(0, 100, i =>
+            {
+                Thread.Sleep(20);
+
+                //byte[] buffer = null;
+                //try
+                //{
+                //    buffer = ArrayPool<byte>.Shared.Rent(100_000);
+                //    Random.Shared.NextBytes(buffer.AsSpan());
+                //    SHA256.HashData(buffer.AsSpan());
+                //}
+                //finally
+                //{
+                //    if (buffer != null)
+                //    {
+                //        ArrayPool<byte>.Shared.Return(buffer, clearArray: true);
+                //    }
+                //}
+            });
         }
     }
 
@@ -41,11 +59,5 @@ public class CpuBoundedConsumer : BackgroundService
             Console.WriteLine($"Progress: {c,6}, Time: {stopwatch.Elapsed}, OPS: {100.0 / stopwatch.Elapsed.TotalSeconds:####.##}");
             stopwatch.Restart();
         }
-    }
-
-    static void HandleAndSaveResults(int item)
-    {
-        // Simulate CPU-bound work
-        Thread.Sleep(2_000);
     }
 }

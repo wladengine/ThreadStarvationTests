@@ -1,5 +1,4 @@
 using ThreadStarvationDemo.BackgroundNoise;
-using ThreadStarvationDemo.BackgroundNoise.BackgroundServices;
 using ThreadStarvationDemo.BackgroundNoise.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,7 +7,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-builder.Services.AddHostedService<CpuBoundedConsumer>();
+//builder.Services.AddHostedService<CpuBoundedConsumer>();
+//builder.Services.AddHostedService<TplConsumer>();
 
 builder.Services.Configure<ProductDatabaseSettings>(builder.Configuration.GetSection(nameof(ProductDatabaseSettings)));
 

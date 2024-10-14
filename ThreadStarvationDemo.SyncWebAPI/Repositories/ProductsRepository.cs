@@ -16,12 +16,12 @@ public partial class ProductsRepository
     public IEnumerable<Product> GetProducts()
     {
         using var db = DbConnection;
-        return db.Query<Product>(@"WAITFOR DELAY '00:00:00.2'; SELECT Id, Name FROM wh.Product;");
+        return db.Query<Product>(@"WAITFOR DELAY '00:00:00.3'; SELECT Id, Name FROM wh.Product;");
     }
 
     public async Task<IEnumerable<Product>> GetProductsAsync()
     {
         using var db = DbConnection;
-        return await db.QueryAsync<Product>(@"WAITFOR DELAY '00:00:00.2'; SELECT Id, Name FROM wh.Product;");
+        return await db.QueryAsync<Product>(@"WAITFOR DELAY '00:00:00.3'; SELECT Id, Name FROM wh.Product;");
     }
 }
