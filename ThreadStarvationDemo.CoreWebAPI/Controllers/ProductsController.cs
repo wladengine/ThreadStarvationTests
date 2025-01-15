@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ThreadStarvationDemo.CoreWebAPI.Models;
@@ -13,11 +12,8 @@ namespace ThreadStarvationDemo.CoreWebAPI.Controllers
     {
         private readonly ProductsRepository _productsRepository;
 
-        private readonly ILogger<ProductsController> _logger;
-
-        public ProductsController(ILogger<ProductsController> logger, ProductsRepository productsRepository)
+        public ProductsController(ProductsRepository productsRepository)
         {
-            _logger = logger;
             _productsRepository = productsRepository;
         }
 

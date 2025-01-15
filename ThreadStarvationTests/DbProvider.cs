@@ -1,22 +1,22 @@
-﻿using System.Runtime.CompilerServices;
-
-namespace ThreadStarvationDemo;
+﻿namespace ThreadStarvationDemo;
 
 public static class DbProvider
 {
-    const int Delay = 1;
+    #if DEBUG
+    private const int Delay = 1;
+    #else
+    private const int Delay = 10;
+    #endif
 
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    public static int GetDataFromDB()
+    public static int GetDataFromDb()
     {
         Thread.Sleep(Delay);
-        return Random.Shared.Next();
+        return Random.Shared.Next(10);
     }
 
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    public static async Task<int> GetDataFromDBAsync()
+    public static async Task<int> GetDataFromDbAsync()
     {
         await Task.Delay(Delay);
-        return Random.Shared.Next();
+        return Random.Shared.Next(10);
     }
 }

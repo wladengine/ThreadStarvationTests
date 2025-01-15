@@ -6,22 +6,19 @@ using ThreadStarvationDemo.BackgroundNoise.Models;
 
 namespace ThreadStarvationDemo.BackgroundNoise.Repositories;
 
-public partial class ProductsRepository
+public class ProductsRepository(IOptions<ProductDatabaseSettings> dbOptions)
 {
-    private readonly ProductDatabaseSettings _dbOptions;
-    private IDbConnection DbConnection => new SqlConnection(_dbOptions.ConnectionString);
-
-    public ProductsRepository(IOptions<ProductDatabaseSettings> dbOptions) => _dbOptions = dbOptions.Value;
+    private IDbConnection DbConnection => new SqlConnection(dbOptions.Value.ConnectionString);
 
     public IEnumerable<Product> GetProducts()
     {
-        using var db = DbConnection;
+        using IDbConnection db = DbConnection;
         return db.Query<Product>(@"WAITFOR DELAY '00:00:00.3'; SELECT Id, Name FROM wh.Product;");
     }
 
     public async Task<IEnumerable<Product>> GetProductsAsync()
     {
-        using var db = DbConnection;
+        using IDbConnection db = DbConnection;
         return await db.QueryAsync<Product>(@"WAITFOR DELAY '00:00:00.3'; SELECT Id, Name FROM wh.Product;");
     }
 }

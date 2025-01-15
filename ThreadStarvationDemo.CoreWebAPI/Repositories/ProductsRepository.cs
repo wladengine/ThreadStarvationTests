@@ -8,7 +8,7 @@ using ThreadStarvationDemo.CoreWebAPI.Models;
 
 namespace ThreadStarvationDemo.CoreWebAPI.Repositories
 {
-    public partial class ProductsRepository
+    public class ProductsRepository
     {
         private readonly ProductDatabaseSettings _dbOptions;
         private IDbConnection DbConnection => new SqlConnection(_dbOptions.ConnectionString);
@@ -17,13 +17,13 @@ namespace ThreadStarvationDemo.CoreWebAPI.Repositories
 
         public IEnumerable<Product> GetProducts()
         {
-            using var db = DbConnection;
+            using IDbConnection db = DbConnection;
             return db.Query<Product>(@"WAITFOR DELAY '00:00:00.3'; SELECT Id, Name FROM wh.Product;");
         }
 
         public async Task<IEnumerable<Product>> GetProductsAsync()
         {
-            using var db = DbConnection;
+            using IDbConnection db = DbConnection;
             return await db.QueryAsync<Product>(@"WAITFOR DELAY '00:00:00.3'; SELECT Id, Name FROM wh.Product;");
         }
     }

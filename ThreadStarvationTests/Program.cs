@@ -2,11 +2,11 @@
 
 namespace ThreadStarvationDemo;
 
-static class Program
+internal static class Program
 {
-    static int count = 0;
-    static int collector = 0;
-    static readonly Stopwatch stopwatch = new();
+    private static int _count = 0;
+    private static int _collector = 0;
+    private static readonly Stopwatch Stopwatch = new();
 
     private static void Main(string[] args)
     {
@@ -16,37 +16,42 @@ static class Program
 
         Console.WriteLine("Process has started...");
 
-        stopwatch.Start();
+        Stopwatch.Start();
 
-        var tasks = Enumerable.Range(1, 100_000).Select(x => DoWorkAsync()).ToArray();
+        Task[] tasks = Enumerable.Range(1, 100_000)
+            .Select(x => DoWork())
+            .ToArray();
 
         Task.WaitAll(tasks);
 
         Console.WriteLine("Done!");
+        Console.WriteLine($"Result: {_collector}");
+
         Console.ReadKey();
     }
 
     #region Worker Methods
-    static async Task DoWork()
+
+    private static async Task DoWork()
     {
-        int c = await Task.Run(DbProvider.GetDataFromDB);
-        Interlocked.Add(ref collector, c);
-        LogProgress(Interlocked.Increment(ref count));
+        int response = await Task.Run(DbProvider.GetDataFromDb);
+        Interlocked.Add(ref _collector, response);
+        LogProgress(Interlocked.Increment(ref _count));
     }
 
     static async Task DoWorkAsync()
     {
-        int c = await DbProvider.GetDataFromDBAsync();
-        Interlocked.Add(ref collector, c);
-        LogProgress(Interlocked.Increment(ref count));
+        int response = await DbProvider.GetDataFromDbAsync();
+        Interlocked.Add(ref _collector, response);
+        LogProgress(Interlocked.Increment(ref _count));
     }
 
-    static void LogProgress(int c)
+    private static void LogProgress(int counter)
     {
-        if (c % 1_000 == 0)
+        if (counter % 1_000 == 0)
         {
-            Console.WriteLine($"Progress: {c,6}, Time: {stopwatch.Elapsed}, RPS: {1_000.0/stopwatch.Elapsed.TotalSeconds:####.##}");
-            stopwatch.Restart();
+            Console.WriteLine($"Progress: {counter,6}, Time: {Stopwatch.Elapsed}, RPS: {1_000.0/Stopwatch.Elapsed.TotalSeconds:####.##}");
+            Stopwatch.Restart();
         }
     }
     #endregion

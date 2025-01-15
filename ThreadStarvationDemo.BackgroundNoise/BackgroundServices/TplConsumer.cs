@@ -5,14 +5,14 @@ namespace ThreadStarvationDemo.BackgroundNoise.BackgroundServices;
 
 public class TplConsumer : BackgroundService
 {
-    private static int counter = 0;
-    static readonly Stopwatch stopwatch = new();
+    private static int _counter = 0;
+    private static readonly Stopwatch Stopwatch = new();
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        stopwatch.Start();
-        await foreach (var item in GetItemsAsync(stoppingToken))
+        Stopwatch.Start();
+        await foreach (int item in GetItemsAsync(stoppingToken))
         {
-            LogProgress(Interlocked.Increment(ref counter));
+            LogProgress(Interlocked.Increment(ref _counter));
 
             // Simulate parallel CPU-bounded work
             Parallel.For(0, 100, i =>
@@ -52,12 +52,12 @@ public class TplConsumer : BackgroundService
         }
     }
 
-    static void LogProgress(int c)
+    private static void LogProgress(int c)
     {
         if (c % 100 == 0)
         {
-            Console.WriteLine($"Progress: {c,6}, Time: {stopwatch.Elapsed}, OPS: {100.0 / stopwatch.Elapsed.TotalSeconds:####.##}");
-            stopwatch.Restart();
+            Console.WriteLine($"Progress: {c,6}, Time: {Stopwatch.Elapsed}, OPS: {100.0 / Stopwatch.Elapsed.TotalSeconds:####.##}");
+            Stopwatch.Restart();
         }
     }
 }

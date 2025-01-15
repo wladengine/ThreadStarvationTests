@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34009.444
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ThreadStarvationDemo", "ThreadStarvationTests\ThreadStarvationDemo.csproj", "{5FC0FECC-0ED8-4190-B851-49A6423AD48E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "[1] ThreadStarvationDemo", "ThreadStarvationTests\[1] ThreadStarvationDemo.csproj", "{5FC0FECC-0ED8-4190-B851-49A6423AD48E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ThreadStarvationDemo.SyncWebAPI", "ThreadStarvationDemo.SyncWebAPI\ThreadStarvationDemo.SyncWebAPI.csproj", "{2ECF817E-F434-4F90-9750-C11CE5F797CF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ThreadStarvationDemo.BackgroundNoise", "ThreadStarvationDemo.BackgroundNoise\ThreadStarvationDemo.BackgroundNoise.csproj", "{8853E337-D261-4AA4-96FA-5B2C9CB42C7E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "[3] ThreadStarvationDemo.BackgroundNoise", "ThreadStarvationDemo.BackgroundNoise\[3] ThreadStarvationDemo.BackgroundNoise.csproj", "{8853E337-D261-4AA4-96FA-5B2C9CB42C7E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ThreadStarvationDemo.CoreWebAPI", "ThreadStarvationDemo.CoreWebAPI\ThreadStarvationDemo.CoreWebAPI.csproj", "{F95878E6-FDFF-4C4F-9543-A8807132EB0C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "[2] ThreadStarvationDemo.CoreWebAPI", "ThreadStarvationDemo.CoreWebAPI\[2] ThreadStarvationDemo.CoreWebAPI.csproj", "{F95878E6-FDFF-4C4F-9543-A8807132EB0C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{16E750DB-C7D4-49D2-BF3B-87CFF753F282}"
 	ProjectSection(SolutionItems) = preProject
