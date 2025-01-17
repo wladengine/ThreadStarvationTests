@@ -19,7 +19,7 @@ internal static class Program
         Stopwatch.Start();
 
         Task[] tasks = Enumerable.Range(1, 100_000)
-            .Select(x => DoWork())
+            .Select(_ => DoWork())
             .ToArray();
 
         Task.WaitAll(tasks);
@@ -34,7 +34,7 @@ internal static class Program
 
     private static async Task DoWork()
     {
-        int response = await Task.Run(DbProvider.GetDataFromDb);
+        int response = await Task.Run(DbProvider.GetDataFromDb); // sync-over-async
         Interlocked.Add(ref _collector, response);
         LogProgress(Interlocked.Increment(ref _count));
     }

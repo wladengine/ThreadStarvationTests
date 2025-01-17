@@ -41,7 +41,8 @@ public class TplConsumer : BackgroundService
     {
         for (var i = 0; i < 1_000_000; i++)
         {
-            await Task.Delay(50, stoppingToken);
+            // About 50 requests per second
+            await Task.Delay(20, stoppingToken);
 
             if (stoppingToken.IsCancellationRequested)
             {

@@ -15,8 +15,8 @@ public class CpuBoundedConsumer : BackgroundService
             LogProgress(Interlocked.Increment(ref _counter));
 
             // fire and forget
-            Task.Factory.StartNew((i) => HandleAndSaveResults((int)i), item);
-            //Task.Factory.StartNew((i) => HandleAndSaveResults((int)i), item, TaskCreationOptions.LongRunning);
+            //Task.Factory.StartNew((i) => HandleAndSaveResults((int)i), item);
+            Task.Factory.StartNew((i) => HandleAndSaveResults((int)i), item, TaskCreationOptions.LongRunning);
         }
     }
 
@@ -24,7 +24,7 @@ public class CpuBoundedConsumer : BackgroundService
     {
         for (var i = 0; i < 1_000_000; i++)
         {
-            await Task.Delay(50, stoppingToken);
+            await Task.Delay(20, stoppingToken);
 
             if (stoppingToken.IsCancellationRequested)
             {
